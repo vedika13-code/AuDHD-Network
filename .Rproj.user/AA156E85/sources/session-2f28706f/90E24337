@@ -1,0 +1,27 @@
+{
+    "id": "90E24337",
+    "path": "~/Desktop/AuDHD_Network/scripts/01_dataset_verification.R",
+    "project_path": "scripts/01_dataset_verification.R",
+    "type": "r_source",
+    "hash": "3049997099",
+    "contents": "",
+    "dirty": false,
+    "created": 1783854762264.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "92,0",
+        "scrollLine": "71"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1783859375,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1783859375126,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,5 @@
+data/raw/
+*.gz
+*.tar
+.Rhistory
+.RData

@@ -1,4 +1,5 @@
-.Rproj.user
+data/raw/
+*.gz
+*.tar
 .Rhistory
 .RData
-.Ruserdata
