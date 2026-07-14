@@ -3,3 +3,5 @@ data/raw/
 *.tar
 .Rhistory
 .RData
+data/processed/*.csv
+data/processed/*.rds
