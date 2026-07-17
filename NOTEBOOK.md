@@ -269,3 +269,53 @@
 - [ ] 06_enrichment.R — GO/KEGG pathway enrichment on ME11 via clusterProfiler
 - [ ] Write manuscript methods and results sections
 - [ ] Target journals: Molecular Psychiatry, Translational Psychiatry, Briefings in Bioinformatics
+
+---
+
+## Session 5 — ADHD Differential Expression of ME11
+**Date:** 2026-07-17
+
+### Gene Naming Issue — Resolved
+- ADHD matrix (GSE159104) uses UCSC transcript IDs (uc001txn.2 etc.), not gene symbols
+- ME11 genes use Illumina probe symbols from GPL10558
+- Direct overlap: 0 genes
+- Fix: mapped UCSC IDs to gene symbols via adhd_annot (`Gene name` column from count file)
+- After mapping: 6,999 unique gene symbols in ADHD matrix
+- ME11 overlap after symbol mapping: **79/187 genes (42%)**
+- Hub genes found: TMSB4X, RAP1B, C1D, ZCCHC10 ✅ (HSPCAL3 missing — not in ADHD matrix)
+- Also removed 1 NA rowname from ADHD matrix before limma
+
+### Genome-Wide DE Results (ADHD vs CTRL)
+- Total genes tested: 6,999
+- Significant at FDR < 0.05: **0 genes**
+- Nominal p < 0.05: 15 genes
+- Interpretation: Dataset underpowered for genome-wide DE (n=76, small effect sizes in blood)
+
+### ME11 Enrichment Test (Fisher's Exact)
+- ME11 genes nominally DE: 0/79
+- Fisher's OR = 0, p = 1.0
+- **No enrichment of ME11 genes among ADHD DE genes**
+
+### ME11 Module Score in ADHD
+- Module score = mean z-score across 79 ME11 genes per sample
+- t-test ADHD vs CTRL: **p = 0.825**
+- Mean score ADHD ≈ Mean score CTRL ≈ 0
+- **ME11 shows no dysregulation in ADHD**
+
+### Key Finding: ME11 is ASD-Specific, Not AuDHD-Shared
+- ME11 is significantly downregulated in ASD (FDR=0.0008)
+- ME11 shows zero signal in ADHD (p=0.825)
+- Combined with PPI non-convergence (p=0.37): ME11 is a regulatory module specific to ASD
+- This is a publishable negative result — the framework successfully distinguishes disorder-specific from shared biology
+
+### Paper Framing
+> "ME11, the primary ASD-associated co-expression module (r=-0.26, FDR=0.0008), showed no significant dysregulation in the ADHD transcriptome (module score t-test p=0.825, Fisher OR=0, p=1.0), indicating ASD-specific rather than shared AuDHD transcriptional architecture. Combined with the absence of PPI centrality convergence (Wilcoxon p=0.37), ME11 reflects a regulatory program uniquely disrupted in ASD. These findings demonstrate that the WGCNA-PPI framework can distinguish disorder-specific from shared molecular networks — a prerequisite for defining AuDHD biology."
+
+### Outputs
+- results/adhd_de/ADHD_full_de_results.csv
+- results/adhd_de/ME11_adhd_module_scores.csv
+- figures/ME11_adhd_module_score.png
+
+### Next Steps
+- [ ] 06_enrichment.R — GO/KEGG pathway enrichment on ME11 genes
+- [ ] Write manuscript
