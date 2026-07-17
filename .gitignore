@@ -1,8 +1,12 @@
 # Large data files
 data/raw/
 data/processed/*.rds
-data/processed/*.csv
 data/processed/*.RData
+
+# Metadata CSVs are small enough to track - keep those
+# Expression CSVs are too large - exclude
+data/processed/ASD_expression_clean.csv
+data/processed/ADHD_expression_clean.csv
 
 # RStudio files
 .Rproj.user/
@@ -10,6 +14,6 @@ data/processed/*.RData
 .Rhistory
 .RData
 
-# Large intermediate files
+# Compressed files
 *.gz
 *.tar
