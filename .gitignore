@@ -1,12 +1,16 @@
-# Large data files
-data/raw/
+# Large expression matrices (>100MB)
+data/processed/ASD_expression_clean.csv
+data/processed/ADHD_expression_clean.csv
+
+# Large RDS objects
 data/processed/*.rds
 data/processed/*.RData
 
-# Metadata CSVs are small enough to track - keep those
-# Expression CSVs are too large - exclude
-data/processed/ASD_expression_clean.csv
-data/processed/ADHD_expression_clean.csv
+# Raw GEO downloads
+data/raw/
+
+# TOM files (very large)
+data/processed/*TOM*
 
 # RStudio files
 .Rproj.user/
@@ -16,4 +20,4 @@ data/processed/ADHD_expression_clean.csv
 
 # Compressed files
 *.gz
-*.tar
+*.tars

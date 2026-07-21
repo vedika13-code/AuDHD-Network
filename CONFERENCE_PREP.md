@@ -238,3 +238,34 @@ This is your strongest figure. Use it to explain the biology of ME11.
 - Ribonucleoprotein complex binding: p = 9.0 × 10⁻⁴
 - U2-type spliceosome (CC): p = 1.9 × 10⁻³
 - Transcription repressor complex (CC): p = 4.5 × 10⁻³
+
+---
+
+## 13. Reactome Enrichment — Updated Key Finding
+
+**This is now your strongest biological result.**
+
+### What changed
+- KEGG enrichment was not possible due to a clusterProfiler bug on Mac
+- Used ReactomePA instead (equivalent database, fully offline)
+- **4 FDR-significant pathways identified (FDR<0.05)** — all mRNA splicing/processing
+
+### The four significant pathways
+| Pathway | FDR | Genes |
+|---|---|---|
+| Processing of Capped Intron-Containing Pre-mRNA | 0.007 | 12/106 |
+| mRNA Splicing — Major Pathway | 0.007 | 10/106 |
+| mRNA Splicing | 0.007 | 10/106 |
+| mRNA Polyadenylation | 0.033 | 7/106 |
+
+### How to explain this at the conference
+"Our Reactome pathway analysis identified four FDR-significant pathways in ME11, all converging on mRNA splicing and pre-mRNA processing. This is actually one of our strongest findings — it's not just a trend, it survived multiple testing correction. Combined with the GO analysis showing RNA splicing as the top nominal term at p=8.2×10⁻⁵, we're very confident that ME11 represents a spliceosomal co-expression module dysregulated in ASD. This is biologically meaningful — there's a growing body of literature linking spliceosome dysfunction to ASD."
+
+### If asked why Reactome instead of KEGG
+"We encountered a technical issue with the KEGG download function in our version of clusterProfiler on Mac — a known libdeflate compression bug. We used ReactomePA instead, which is a peer-reviewed, manually curated database that's widely accepted as an equivalent alternative for pathway enrichment analysis. The biological interpretation is equivalent."
+
+### Updated key numbers
+- Reactome pathways FDR<0.05: **4**
+- Top pathway p-value: **2.0×10⁻⁵** (Processing of Capped Intron-Containing Pre-mRNA)
+- GO RNA splicing p-value: **8.2×10⁻⁵** (nominal)
+- Both analyses independently point to the same biology ✅
