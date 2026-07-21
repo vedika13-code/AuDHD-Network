@@ -16,8 +16,8 @@
 | 02_preprocessing.R | Load, merge, normalize, filter, save | ✅ Complete |
 | 03_wgcna_asd.R | ASD co-expression network | ✅ Complete |
 | 04_ppi_validation.R | STRING PPI centrality analysis | ✅ Complete |
-| 05_adhd_de.R | ADHD differential expression of ME11 | ⏳ Next |
-| 06_enrichment.R | GO/KEGG pathway enrichment on ME11 | ⏳ Pending |
+| 05_adhd_de.R | ADHD differential expression of ME11 | ✅ Complete |
+| 06_enrichment.R | GO + Reactome pathway enrichment on ME11 | ✅ Complete |
 
 ---
 
@@ -264,11 +264,13 @@
 
 ---
 
-## Next Steps
-- [ ] 05_adhd_de.R — test whether ME11 genes are dysregulated in ADHD (GSE159104)
-- [ ] 06_enrichment.R — GO/KEGG pathway enrichment on ME11 via clusterProfiler
-- [ ] Write manuscript methods and results sections
-- [ ] Target journals: Molecular Psychiatry, Translational Psychiatry, Briefings in Bioinformatics
+## Completed Steps
+- [x] 05_adhd_de.R — ME11 not dysregulated in ADHD (p=0.825) — ASD-specific
+- [x] 06_enrichment.R — GO + Reactome enrichment complete; 4 FDR-significant spliceosomal pathways
+- [x] Manuscript methods and results sections drafted
+- [x] Conference poster generated (v2 with all figures)
+- [x] Conference prep guide written
+- Target journals: Molecular Psychiatry, Translational Psychiatry, Briefings in Bioinformatics
 
 ---
 
@@ -379,13 +381,46 @@ This is a biologically coherent picture consistent with regulatory dysregulation
 - results/enrichment/ME11_GO_CC.csv
 - figures/ME11_GO_combined.png
 
-### Next Steps
-- [ ] Generate final figures for conference presentation
-- [ ] Write manuscript methods and results sections
-- [ ] Retry KEGG enrichment after clearing cache
-
 ### GO Enrichment Figure
 - figures/ME11_GO_combined.png — combined barplot of top GO terms across BP, MF, CC
 - RNA splicing is the dominant signal (-log10p ≈ 4.1)
 - All three GO categories point to same biology: RNA processing, splicing machinery, transcriptional repression
 - Figure is publication-quality and suitable for conference presentation
+
+---
+
+## Session 7 — Reactome Pathway Enrichment
+**Date:** 2026-07-20
+
+### KEGG Issue — Final Resolution
+- enrichKEGG() fails on this system due to libdeflate compression bug in clusterProfiler v2.22.0 on Mac
+- Not a network issue — corrupted decompression regardless of connection quality
+- Solution: ReactomePA package used instead (fully offline, locally installed annotation)
+- Reactome is an equivalent or superior database for this analysis — more curated, human-focused, equally accepted by reviewers
+
+### Reactome Results — 4 Significant Pathways (FDR<0.05)
+
+| Pathway | ID | Genes | p-value | FDR |
+|---|---|---|---|---|
+| Processing of Capped Intron-Containing Pre-mRNA | R-HSA-72203 | 12/106 | 2.0×10⁻⁵ | 0.007 |
+| mRNA Splicing — Major Pathway | R-HSA-72163 | 10/106 | 2.3×10⁻⁵ | 0.007 |
+| mRNA Splicing | R-HSA-72172 | 10/106 | 3.2×10⁻⁵ | 0.007 |
+| mRNA Polyadenylation | R-HSA-9770562 | 7/106 | 1.9×10⁻⁴ | 0.033 |
+
+- 99 pathways nominally significant (p<0.05)
+- Additional nominally significant: ER-to-Golgi transport (p=6.7×10⁻⁴), Rab regulation of trafficking (p=6.1×10⁻³)
+
+### Interpretation
+- Three of four FDR-significant pathways are directly related to mRNA splicing/processing
+- This is FDR-significant confirmation of the GO RNA splicing signal (previously only nominal)
+- ME11 is a spliceosomal module — the most robustly supported biological finding of this project
+- mRNA Polyadenylation adds a complementary layer: not just splicing but full pre-mRNA processing
+- ER-to-Golgi and Rab trafficking (nominal) corroborate the GO vesicle trafficking signal
+- Combined GO + Reactome story: ME11 encodes coordinated dysregulation of pre-mRNA processing and vesicular trafficking in ASD
+
+### Updated Biological Story for Paper
+> "Reactome pathway enrichment identified four FDR-significant pathways (FDR<0.05), all related to mRNA processing: Processing of Capped Intron-Containing Pre-mRNA (FDR=0.007, 12 genes), mRNA Splicing — Major Pathway (FDR=0.007, 10 genes), mRNA Splicing (FDR=0.007, 10 genes), and mRNA Polyadenylation (FDR=0.033, 7 genes). These findings establish ME11 as a spliceosomal co-expression module, consistent with emerging literature on spliceosome dysregulation in ASD."
+
+### Outputs
+- results/enrichment/ME11_Reactome.csv
+- figures/ME11_Reactome_dotplot.png
