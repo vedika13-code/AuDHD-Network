@@ -20,4 +20,4 @@ data/processed/*TOM*
 
 # Compressed files
 *.gz
-*.tars
+*.tars*.pdf
