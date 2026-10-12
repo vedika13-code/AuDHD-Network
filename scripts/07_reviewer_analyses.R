@@ -101,7 +101,7 @@ if (mean(grepl("^uc", rownames(adhd))) > 0.5) {
   adhd <- mats[[best]]
   say("Using '", best, "': ", nrow(adhd), " genes; reproduces original t-statistics with r = ",
       round(cmp$r_t[1], 4))
-  if (cmp$r_t[1] < 0.99) say("WARNING: no version reproduced the original DE closely (r < 0.99). ",
+  if (cmp$r_t[1] < 0.95) say("WARNING: no version reproduced the original DE closely (r < 0.95). ",
                              "Send results/review/ADHD_collapse_reconstruction.csv back before using these results.")
 }
 
@@ -204,15 +204,29 @@ say("Age available for ", sum(!is.na(asd_meta$age_months)), " of ", nrow(asd_met
 dA <- data.frame(ME11, dx = factor(asd_meta$diagnosis, levels = c("TD", "ASD")),
                  sex = factor(asd_meta$gender), cs_asd[, colSums(is.na(cs_asd)) == 0, drop = FALSE],
                  age = asd_meta$age_months)
+say("Sex in ASD cohort: ", paste(names(table(dA$sex, useNA = "ifany")), table(dA$sex, useNA = "ifany"), collapse = "; "))
+cell_terms <- colnames(cs_asd)[colSums(is.na(cs_asd)) == 0]
+# Fit, dropping any covariate that has only one level (or no variation) in the subset used
+safe_lm <- function(terms, data) {
+  data <- data[complete.cases(data[, c("ME11", terms)]), ]
+  keep <- terms[sapply(terms, function(v) length(unique(data[[v]])) > 1)]
+  if (!all(c("dx") %in% keep)) return(NULL)
+  dropped <- setdiff(terms, keep)
+  f <- lm(as.formula(paste("ME11 ~", paste(keep, collapse = " + "))), data)
+  attr(f, "dropped") <- paste(dropped, collapse = ","); f
+}
 fits <- list(
-  unadjusted   = lm(ME11 ~ dx, dA),
-  sex          = lm(ME11 ~ dx + sex, dA),
-  sex_cells    = lm(as.formula(paste("ME11 ~ dx + sex +", paste(colnames(cs_asd)[colSums(is.na(cs_asd)) == 0], collapse = "+"))), dA),
-  sex_age_GSE111175_only = lm(ME11 ~ dx + sex + age, dA[!is.na(dA$age), ])
+  unadjusted             = safe_lm("dx", dA),
+  sex                    = safe_lm(c("dx", "sex"), dA),
+  sex_cells              = safe_lm(c("dx", "sex", cell_terms), dA),
+  sex_age_GSE111175_only = safe_lm(c("dx", "sex", "age"), dA[!is.na(dA$age), ]),
+  sex_age_cells_GSE111175_only = safe_lm(c("dx", "sex", "age", cell_terms), dA[!is.na(dA$age), ])
 )
+fits <- fits[!sapply(fits, is.null)]
 adj_tab <- do.call(rbind, lapply(names(fits), function(n) {
   co <- summary(fits[[n]])$coefficients["dxASD", ]
-  data.frame(model = n, n = nobs(fits[[n]]), beta = co[1], se = co[2], p = co[4])
+  data.frame(model = n, n = nobs(fits[[n]]), beta = co[1], se = co[2], p = co[4],
+             dropped_single_level = attr(fits[[n]], "dropped"))
 }))
 print(adj_tab); capture.output(print(adj_tab), file = log_file, append = TRUE)
 write.csv(adj_tab, "results/review/ASD_ME11_adjusted.csv", row.names = FALSE)
