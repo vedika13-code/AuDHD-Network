@@ -14,7 +14,7 @@
 #   Figure 2     ASD dendrogram           (data/processed/ASD_network_final.rds)
 #   Figure 3     Module-trait heatmap     (ASD_module_eigengenes.rds + metadata)
 #   Figure 5     ME11 score in ADHD       (results/adhd_de/ME11_adhd_module_scores.csv)
-#   Figure 6     GO enrichment summary    (results/enrichment/ME11_GO_*.csv)
+#   Figure 6     GO enrichment summary    (results/review/ME11_GO_*_networkUniverse.csv)
 #
 # Figure 4 and the graphical abstract are produced separately.
 #
@@ -163,7 +163,8 @@ if (5 %in% want) {
 if (6 %in% want) {
   cat("Figure 6: GO enrichment summary\n")
   top <- function(ont, n, lab) {
-    d <- read.csv(paste0("results/enrichment/ME11_GO_", ont, ".csv"))
+    # primary analysis: network gene background (11,265 genes; from 07_reviewer_analyses.R)
+    d <- read.csv(paste0("results/review/ME11_GO_", ont, "_networkUniverse.csv"))
     d <- head(d[order(d$pvalue), ], n)
     data.frame(term = d$Description, logp = -log10(d$pvalue), cat = lab)
   }
