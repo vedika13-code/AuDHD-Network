@@ -1,0 +1,26 @@
+Samples by dataset and diagnosis: 
+           dx
+bat         TD ASD
+  GSE111175 69  28
+  GSE42133  54  87
+Sex coding by dataset (GSE111175 uses 'M', GSE42133 uses 'male'): 
+           
+bat           M male
+  GSE111175  97    0
+  GSE42133    0  141
+
+== ME11 eigengene, ASD vs TD == 
+     subset   n n_ASD          r          d       d_lo       d_hi            p
+1       all 238   115 -0.2602719 -0.5371581 -0.7959368 -0.2783794 4.815448e-05
+2 GSE111175  97    28  0.1234712  0.2717350 -0.1691023  0.7125723 2.282411e-01
+3  GSE42133 141    87 -0.3619520 -0.7930560 -1.1450004 -0.4411115 1.032946e-05
+Pooled, dataset as covariate: beta = -0.0352, p = 6.29e-05 
+Meta-analysis of within-dataset effects: d = -0.379 (95% CI -0.654 to -0.104), p = 0.00698 
+Heterogeneity between datasets: Q = 13.7, p = 0.000216 
+
+GSE111175 samples with age: 97 
+ME11 ~ dx: beta = 0.00717, p = 0.228 
+ME11 ~ dx + age: beta = 0.00606, p = 0.4 
+Age by diagnosis (months): TD 18.4; ASD 29.4 
+
+Done. Send results/review/batch_check.txt back. 

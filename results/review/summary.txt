@@ -1,0 +1,147 @@
+ADHD matrix as saved: 11964 rows x 76 samples 
+Annotation column used for symbols: Gene name 
+                          version n_genes n_shared       r_t   r_logFC
+mean+as_saved       mean+as_saved    6999     6999 0.9776826 0.9776826
+mean+rowz               mean+rowz    6999     6999 0.9766112 0.9766112
+first+as_saved     first+as_saved    6999     6999 0.9595268 0.9595268
+first+rowz             first+rowz    6999     6999 0.9588493 0.9588493
+maxmean+as_saved maxmean+as_saved    6999     6999 0.9210880 0.9210880
+maxmean+rowz         maxmean+rowz    6999     6999 0.9202488 0.9202488
+mean+log2p1           mean+log2p1      28       28 0.8699283 0.8648723
+maxmean+log2p1     maxmean+log2p1      41       41 0.8537022 0.8458315
+first+log2p1         first+log2p1      30       30 0.8288614 0.8210608
+Using 'mean+as_saved': 6999 genes; reproduces original t-statistics with r = 0.9777 
+Twin pairs: 16; unrelated individuals: 44 
+Y-linked genes available for sex inference: RPS4Y1, DDX3Y, KDM5D, UTY, EIF1AY, USP9Y, ZFY 
+Inferred sex: F 32; M 44 
+Sex x diagnosis:  
+   
+    CTRL ADHD
+  F   17   15
+  M   20   24
+
+== D. Leukocyte marker scores, ADHD vs CTRL (mixed model, twin pair random effect) == 
+                cell   estimate         p n_markers
+Estimate  neutrophil 0.09287980 0.6629627         5
+Estimate1   monocyte 0.07993117 0.6938482         3
+Estimate2      Bcell 0.14006485 0.4977040         4
+1              Tcell         NA        NA         0
+Estimate3     NKcell 0.07532747 0.7070306         2
+11        eosinophil         NA        NA         0
+
+== D. ASD: cell scores vs diagnosis, and vs ME11 eigengene == 
+        cell p_vs_diagnosis r_with_ME11          p_r
+1 neutrophil    0.426699897  0.10490873 1.064429e-01
+2   monocyte    0.929252882  0.03537633 5.870911e-01
+3      Bcell    0.003384302 -0.03205566 6.226815e-01
+4      Tcell    0.179324891 -0.26821713 2.751012e-05
+5     NKcell    0.810477829 -0.16862578 9.149245e-03
+6 eosinophil    0.057133723 -0.12928893 4.632264e-02
+
+== E. ME11 ~ diagnosis, adjusted == 
+Age available for 97 of 238 ASD-cohort samples 
+Sex in ASD cohort: M 97; male 141 
+                                 model   n         beta          se
+Estimate                    unadjusted 238 -0.033760921 0.008152657
+Estimate1                          sex 238 -0.035159703 0.008627718
+Estimate2                    sex_cells 238 -0.027732980 0.008461138
+Estimate3       sex_age_GSE111175_only  97  0.006060720 0.007173787
+Estimate4 sex_age_cells_GSE111175_only  97  0.007823891 0.007350169
+                     p dropped_single_level
+Estimate  4.815448e-05                     
+Estimate1 6.291516e-05                     
+Estimate2 1.209322e-03                     
+Estimate3 4.003440e-01                  sex
+Estimate4 2.900367e-01                  sex
+
+== A. limma, twin pair as blocking factor == 
+Paired (block): consensus within-pair correlation = 0.094; FDR<0.05: 0; FDR<0.10: 0 
+Paired + sex + cell scores: consensus within-pair correlation = 0.264; FDR<0.05: 0; FDR<0.10: 0 
+Fisher (nominal p<0.05), paired: overlap 0 n_ME11 79 n_de 18 OR 0 p 1 
+Fisher (nominal p<0.05), paired+cov: overlap 4 n_ME11 79 n_de 334 OR 1.07 p 0.525 
+camera (ME11 set, ADHD vs CTRL): NGenes 79 Direction Down PValue 0.086428204624923 
+
+== B. ME11 module score in ADHD == 
+m0: beta = 0.0315 (0.0382 SD), 95% CI -0.415 to 0.492 SD, p = 0.866 
+m0: TOST (+/-0.5 SD) p = 0.0231 
+m1: beta = -0.0817 (-0.0992 SD), 95% CI -0.19 to -0.00811 SD, p = 0.0336 
+m1: TOST (+/-0.5 SD) p = 3.42e-11 
+Paired t-test (16 discordant pairs): p = 0.605 
+Hedges' g = 0.0472 (95% CI -0.403 to 0.497) 
+
+== C. Positive controls == 
+C1. ASD cohort, matched-gene ME11 score (81 probes): d = -0.463, p = 0.000482 
+C2. Spike-in d = 0.3 on score scale: detection rate = 0.26 
+C2. Spike-in d = 0.54 on score scale: detection rate = 0.602 
+C2. Spike-in d = 0.8 on score scale: detection rate = 0.916 
+C3. Y-score gap between inferred sexes (SD units): 1.63 
+
+== F. modulePreservation == 
+Genes shared between ASD (collapsed) and ADHD: 4267; ME11 genes among them: 34 
+   module moduleSize     Zsummary medianRank
+1       0        705 10.260170323         17
+2     0.1       1000  6.368529424         21
+3       1        595 13.310391156          4
+4      10        147 -2.179050904         28
+5      11         34 -0.088622182         24
+6      12         80  4.938816374          5
+7      13        117  5.306134540          4
+8      14         93  1.949998306         17
+9      15         97  1.412314773         15
+10     16        102  3.779883072         11
+11     17         62 -1.145191310         27
+12     18         62 -0.004141144         26
+13     19         55 -0.833500120         27
+14      2        429  2.325350083         23
+15     20         65 -0.091902286         25
+16     21         57 -0.854592723         29
+17     22         75  2.641452080         12
+18     23         64  1.696537458         18
+19     24         41  2.382467758          7
+20     25         53  4.921754140          1
+21     26         41  3.469650081          5
+22     27         35  0.955781873         16
+23     28          4 -0.089504395         24
+24     29         20  0.030874638         21
+25      3        233  1.534267583         22
+26     30         29  1.067306081         10
+27     31         21  1.470049743         10
+28     32          1          NaN         NA
+29      4        212  3.938764315          8
+30      5        192  2.468702826         16
+31      6         97 -0.327800744         19
+32      7        221 -1.066026759         26
+33      8        108 -3.183216904         31
+34      9        120  6.547675510          2
+ME11 Zsummary = -0.0886 (Z<2 no evidence, 2-10 weak/moderate, >10 strong preservation) 
+
+== G. Enrichment, universe = all genes in the 15,000-probe ASD network == 
+Universe size: 11265; ME11 genes: 187 
+GO BP: FDR<0.05 terms = 0 
+GO MF: FDR<0.05 terms = 0 
+GO CC: FDR<0.05 terms = 0 
+Reactome: FDR<0.05 pathways = 0 
+                                                                                      Description
+R-HSA-72163                                                         mRNA Splicing - Major Pathway
+R-HSA-72203                                       Processing of Capped Intron-Containing Pre-mRNA
+R-HSA-72172                                                                         mRNA Splicing
+R-HSA-9770562                                                                mRNA Polyadenylation
+R-HSA-199977                                                    ER to Golgi Anterograde Transport
+R-HSA-5653656                                                          Vesicle-mediated transport
+R-HSA-9856649 Transcriptional and post-translational regulation of MITF-M expression and activity
+R-HSA-72187                                                                mRNA 3'-end processing
+R-HSA-199991                                                                 Membrane Trafficking
+R-HSA-948021                                   Transport to the Golgi and subsequent modification
+              GeneRatio  BgRatio       pvalue   p.adjust
+R-HSA-72163      10/106 144/5775 0.0002800845 0.08529544
+R-HSA-72203      12/106 208/5775 0.0003863723 0.08529544
+R-HSA-72172      10/106 150/5775 0.0003894769 0.08529544
+R-HSA-9770562     7/106  97/5775 0.0019068612 0.27343707
+R-HSA-199977      7/106 103/5775 0.0026887176 0.27343707
+R-HSA-5653656    16/106 408/5775 0.0028902007 0.27343707
+R-HSA-9856649     4/106  33/5775 0.0029133326 0.27343707
+R-HSA-72187       7/106 113/5775 0.0045140059 0.33642123
+R-HSA-199991     15/106 389/5775 0.0046085100 0.33642123
+R-HSA-948021      7/106 122/5775 0.0068464832 0.44981395
+
+Done. Send results/review/summary.txt back for the manuscript update. 
