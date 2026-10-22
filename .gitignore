@@ -21,3 +21,7 @@ data/processed/*TOM*
 # Compressed files
 *.gz
 *.tars*.pdf
+
+# Personal notes (kept locally, not published)
+NOTEBOOK.md
+CONFERENCE_PREP.md
