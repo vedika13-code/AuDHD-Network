@@ -4,7 +4,9 @@
 #          600 dpi (PNG + LZW-compressed TIFF) for submission.
 #
 # Each figure keeps the same layout and proportions as the
-# version in the manuscript; only the resolution changes.
+# version in the manuscript. Plot titles and subtitles are left
+# out: journals require captions as plain text in the manuscript,
+# not embedded in the image.
 # Physical sizes are the sizes at which each figure is placed
 # in the manuscript, so 600 dpi is the true print resolution.
 #
@@ -93,7 +95,7 @@ if (1 %in% want) {
     pc <- prcomp(t(mat), scale. = TRUE)
     df <- data.frame(PC1 = pc$x[, 1], PC2 = pc$x[, 2], batch = meta$batch)
     ggplot(df, aes(PC1, PC2, color = batch)) + geom_point(size = 2) +
-      labs(title = title) + theme_minimal()
+      theme_minimal()
   }
   save_gg(pca_plot(merged, "PCA Before ComBat — ASD"), "Figure1a_PCA_before_ComBat", 6, 5)
   corrected <- ComBat(dat = merged, batch = meta$batch, mod = model.matrix(~ diagnosis, meta),
@@ -111,7 +113,7 @@ if (2 %in% want) {
   save_base(function() plotDendroAndColors(
       net$dendrograms[[1]], net$colors[net$blockGenes[[1]]], "Module colors",
       dendroLabels = FALSE, hang = 0.03, addGuide = TRUE, guideHang = 0.05,
-      main = "ASD Gene Dendrogram and Module Colors"),
+      main = ""),
     "Figure2_ASD_dendrogram", 1200, 600, print_w = 5.54)
 }
 
@@ -135,7 +137,7 @@ if (3 %in% want) {
       colorLabels = FALSE, colors = blueWhiteRed(50),
       textMatrix = paste0(signif(cr, 2), "\n(p=", signif(pv, 1), ")"),
       setStdMargins = FALSE, cex.text = 0.5, zlim = c(-1, 1),
-      main = "Module-Trait Correlation — ASD"),
+      main = ""),
     "Figure3_module_trait_heatmap", 800, 1200, print_w = 4.08)
 }
 
@@ -150,9 +152,7 @@ if (5 %in% want) {
     geom_boxplot(alpha = 0.7, outlier.shape = NA) +
     geom_jitter(width = 0.2, size = 1.5, alpha = 0.5) +
     scale_fill_manual(values = c("CTRL" = "#85C1E9", "ADHD" = "#E74C3C")) +
-    labs(title = "ME11 Module Score in ADHD Dataset",
-         subtitle = "t-test p = 0.825 | Fisher OR = 0 p = 1",
-         x = "Condition", y = "ME11 Module Score (mean z-score)") +
+    labs(x = "Condition", y = "ME11 Module Score (mean z-score)") +
     theme_minimal() + theme(legend.position = "none")
   save_gg(p5, "Figure5_ME11_ADHD_module_score", 5, 5)
 }
@@ -177,9 +177,7 @@ if (6 %in% want) {
     scale_fill_manual(values = c("Biological Process" = "#3498DB",
                                  "Cellular Component" = "#2ECC71",
                                  "Molecular Function" = "#E74C3C")) +
-    labs(title = "ME11 Module — GO Enrichment (Top Terms)",
-         subtitle = "Dashed line = nominal p<0.05",
-         x = "-log10(p-value)", y = NULL, fill = "GO Category") +
+    labs(x = "-log10(p-value)", y = NULL, fill = "GO Category") +
     theme_minimal() + theme(axis.text.y = element_text(size = 8))
   save_gg(p6, "Figure6_ME11_GO_enrichment", 10, 8)
 }
