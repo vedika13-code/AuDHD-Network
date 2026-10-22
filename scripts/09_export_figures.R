@@ -57,8 +57,29 @@ save_base <- function(draw, name, orig_px_w, orig_px_h, print_w) {
 if (1 %in% want) {
   cat("Figure 1: downloading GSE111175 and GSE42133 ...\n")
   suppressPackageStartupMessages({ library(GEOquery); library(sva) })
-  g1 <- getGEO("GSE111175", GSEMatrix = TRUE); e1 <- exprs(g1[[1]]); m1 <- pData(g1[[1]])
-  g2 <- getGEO("GSE42133",  GSEMatrix = TRUE); e2 <- exprs(g2[[1]]); m2 <- pData(g2[[1]])
+  # Downloads are cached in data/raw/geo_cache so a retry does not start over.
+  # If NCBI keeps timing out, download the two files in a browser and put them there:
+  #   https://ftp.ncbi.nlm.nih.gov/geo/series/GSE111nnn/GSE111175/matrix/GSE111175_series_matrix.txt.gz
+  #   https://ftp.ncbi.nlm.nih.gov/geo/series/GSE42nnn/GSE42133/matrix/GSE42133_series_matrix.txt.gz
+  options(timeout = 3600)
+  Sys.setenv(VROOM_CONNECTION_SIZE = 500000)
+  cache <- "data/raw/geo_cache"; dir.create(cache, recursive = TRUE, showWarnings = FALSE)
+  fetch <- function(id) {
+    f <- file.path(cache, paste0(id, "_series_matrix.txt.gz"))
+    if (file.exists(f) && file.size(f) > 1e6) {
+      cat("  using cached", f, "\n"); return(getGEO(filename = f))
+    }
+    for (attempt in 1:3) {
+      g <- tryCatch(getGEO(id, GSEMatrix = TRUE, destdir = cache), error = function(e) {
+        cat("  download attempt", attempt, "failed:", conditionMessage(e), "\n"); NULL })
+      if (!is.null(g)) return(g[[1]])
+      if (file.exists(f)) file.remove(f)
+    }
+    stop("Could not download ", id, ". Download it in a browser (links at the top of this section), ",
+         "put it in ", cache, " and run the script again.")
+  }
+  g1 <- fetch("GSE111175"); e1 <- exprs(g1); m1 <- pData(g1)
+  g2 <- fetch("GSE42133");  e2 <- exprs(g2); m2 <- pData(g2)
   k1 <- m1$`diagnosis:ch1` %in% c("ASD", "TD");            e1 <- e1[, k1]; m1 <- m1[k1, ]
   k2 <- m2$`dx (diagnosis):ch1` %in% c("ASD", "Control"); e2 <- e2[, k2]; m2 <- m2[k2, ]
   m1$diagnosis <- m1$`diagnosis:ch1`
