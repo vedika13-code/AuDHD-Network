@@ -79,10 +79,6 @@ AuDHD_Network/
 ├── results/
 │   └── ppi/              # PPI centrality results
 ├── figures/              # All plots and visualizations
-├── README.md             # This file
-└── NOTEBOOK.md           # Full session-by-session research log
+└── README.md             # This file
 ```
 
----
-
-## Full research log: see NOTEBOOK.md
