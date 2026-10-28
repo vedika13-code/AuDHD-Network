@@ -80,6 +80,10 @@ Additional analyses for the revised manuscript. Run them from inside `scripts/re
 | `06_ppi_permutation.R` | ME11 PPI density in STRING v12 against a degree-matched null |
 | `07_consensus_modules_replication.R` | Replication of every consensus module in the independent cohorts |
 | `08_probe_quality.R` | Probe quality of ME11 and the ASD association by probe subset |
+| `09_published_signatures.R` | Replication of published ASD blood signatures (Pramparo et al. 2015; Gazestani et al. 2019) in the independent cohorts |
+| `10_quality_vs_replication.R` | Probe annotation quality vs between-cohort consistency across modules |
+| `11_power_and_prediction.R` | Sample size and prediction interval for a new cohort |
+| `12_sensitivity_without_GSE18123.R` | Replication excluding GSE18123 |
 
 Outputs are in `results/revision/` (MAGMA outputs in `results/revision/magma/`). Third-party inputs (SFARI Gene list, Gandal et al. 2022 supplementary table, PGC GWAS summary statistics, MAGMA reference files) are not redistributed here; download them from their sources as described in `scripts/revision/README.md`.
 

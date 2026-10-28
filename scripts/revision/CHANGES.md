@@ -26,3 +26,7 @@ Every change is marked `# PATCH:` in the code.
 |---|---|
 | `07_consensus_modules_replication.R` | Tests every consensus module from 02 (and the original ME11) in all cohorts with the same score and labels as 01; FDR across modules. |
 | `08_probe_quality.R` | Probe quality of ME11 vs other modules (intensity, secondary probes, annotation) and the ME11-ASD effect by probe subset. |
+| `09_published_signatures.R` | Tests 16 published ASD blood signatures (Pramparo et al. 2015; Gazestani et al. 2019) in all cohorts; signed scores for DE/classifier/network sets. Gene lists in `inputs/published_signatures.csv`, extracted from the papers' supplementary tables. |
+| `10_quality_vs_replication.R` | Across consensus modules: probe annotation and intensity vs between-cohort heterogeneity and the effect retained in replication. |
+| `11_power_and_prediction.R` | Sample size for 80% power at the observed effects; between-cohort heterogeneity and the 95% prediction interval for ME11 in a new cohort. |
+| `12_sensitivity_without_GSE18123.R` | Replication of all signatures and modules in GSE25507 and GSE26415 only. |
