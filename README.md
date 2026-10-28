@@ -61,7 +61,7 @@ Run from the project root in R (≥ 4.3), in order:
 | `scripts/07_reviewer_analyses.R` | Twin-pair limma and mixed models, equivalence test, positive controls, leukocyte scores, module preservation, enrichment against the network background |
 | `scripts/08_asd_batch_check.R` | ME11 association within each ASD dataset and meta-analysis |
 | `scripts/09_export_figures.R` | 600 dpi export of manuscript figures |
-| `scripts/figure_scripts/` | Python scripts for Figures 3 and 4 |
+| `scripts/figure_scripts/` | Python scripts for Figures 3 and 4 and the graphical abstract |
 
 Large expression matrices (`data/processed/*.rds`) and raw GEO downloads (`data/raw/`) are not tracked; `02_preprocessing.R` recreates them from GEO.
 
@@ -81,6 +81,8 @@ Additional analyses for the revised manuscript. Run them from inside `scripts/re
 | `07_consensus_modules_replication.R` | Replication of every consensus module in the independent cohorts |
 | `08_probe_quality.R` | Probe quality of ME11 and the ASD association by probe subset |
 
+Outputs are in `results/revision/` (MAGMA outputs in `results/revision/magma/`). Third-party inputs (SFARI Gene list, Gandal et al. 2022 supplementary table, PGC GWAS summary statistics, MAGMA reference files) are not redistributed here; download them from their sources as described in `scripts/revision/README.md`.
+
 ## Repository structure
 
 ```
@@ -93,7 +95,8 @@ AuDHD_Network/
 │   ├── ppi/              # PPI network and centrality
 │   ├── adhd_de/          # ADHD differential expression and module scores
 │   ├── enrichment/       # GO and Reactome results (default background)
-│   └── review/           # Additional analyses (see 07 and 08)
+│   ├── review/           # Additional analyses (see 07 and 08)
+│   └── revision/         # Revision analyses (scripts/revision/)
 ├── figures/              # Plots
 └── README.md
 ```
