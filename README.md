@@ -65,6 +65,22 @@ Run from the project root in R (≥ 4.3), in order:
 
 Large expression matrices (`data/processed/*.rds`) and raw GEO downloads (`data/raw/`) are not tracked; `02_preprocessing.R` recreates them from GEO.
 
+### Revision analyses (`scripts/revision/`)
+
+Additional analyses for the revised manuscript. Run them from inside `scripts/revision/` after the main pipeline. See `scripts/revision/README.md` for downloads and `CHANGES.md` for details.
+
+| Script | Purpose |
+|---|---|
+| `00_make_inputs.R` | Builds the inputs from the main pipeline's saved files and checks them against the published numbers |
+| `01_asd_replication.R` | ME11 in independent ASD blood cohorts (GSE18123, GSE25507, GSE26415), module preservation, meta-analysis |
+| `02_consensus_wgcna.R` | Consensus network across the two ASD datasets without ComBat |
+| `03_cell_composition.R` | xCell cell-type adjustment within each dataset |
+| `04_sfari_brain_overlap.R` | Module overlap with SFARI genes and ASD-cortex differential expression (Gandal et al. 2022) |
+| `05a_make_magma_sets.R`, `05b_run_magma.sh` | MAGMA gene-set analysis of ASD (Grove 2019) and ADHD (Demontis 2023) GWAS |
+| `06_ppi_permutation.R` | ME11 PPI density in STRING v12 against a degree-matched null |
+| `07_consensus_modules_replication.R` | Replication of every consensus module in the independent cohorts |
+| `08_probe_quality.R` | Probe quality of ME11 and the ASD association by probe subset |
+
 ## Repository structure
 
 ```
