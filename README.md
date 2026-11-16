@@ -107,6 +107,6 @@ AuDHD_Network/
 
 ## Limitations
 
-- Age mismatch: the ASD cohort is toddlers, the ADHD cohort adolescents and adults.
+- Age mismatch: the ASD cohort is toddlers, the ADHD cohort children and adolescents (about 7–18 years).
 - Platform mismatch: microarray (ASD) vs Helicos RNA-seq (ADHD); only 79 ME11 genes are measured in the ADHD data.
 - The ME11–ASD association is driven mainly by GSE42133.
